@@ -6,7 +6,7 @@
 resource "aws_security_group" "public_ec2_sg" {
   name        = "public-ec2-sg-${var.environment}"
   description = "Allow SSH and HTTP from internet"
-  vpc_id      = var.public_subnet_id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 22
@@ -39,7 +39,7 @@ resource "aws_security_group" "public_ec2_sg" {
 resource "aws_security_group" "private_ec2_sg" {
   name        = "private-ec2-sg-${var.environment}"
   description = "Allow SSH only from bastion host"
-  vpc_id      = var.private_subnet_id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port       = 22
@@ -71,7 +71,7 @@ resource "aws_instance" "public_ec2" {
   subnet_id     = var.public_subnet_id
   key_name      = var.key_name
   associate_public_ip_address = true
-  security_groups = [aws_security_group.public_ec2_sg.name]
+  vpc_security_group_ids = [aws_security_group.public_ec2_sg.id]
 
   tags = {
     Name        = "bastion-public-ec2-${count.index + 1}-${var.environment}"
@@ -89,7 +89,7 @@ resource "aws_instance" "private_ec2" {
   subnet_id     = var.private_subnet_id
   key_name      = var.key_name
   associate_public_ip_address = false  # No public IP
-  security_groups = [aws_security_group.private_ec2_sg.name]
+  vpc_security_group_ids = [aws_security_group.private_ec2_sg.id]
 
   tags = {
     Name        = "private-ec2-${count.index + 1}-${var.environment}"
