@@ -22,3 +22,8 @@ variable "private_subnets_cidrs" {
   description = "Private subnets CIDR list"
   type        = list(string)
 }
+
+variable "key_name" {
+  description = "EC2 key pair name"
+  type        = string
+}
