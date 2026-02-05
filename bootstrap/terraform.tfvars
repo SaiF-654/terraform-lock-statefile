@@ -1,3 +1,3 @@
 region              = "us-east-1"
-bucket_name         = "my-terraform-state-bucket-123"
+bucket_name         = "saif-terraform-state-bucket-111"
 dynamodb_table_name = "terraform-state-locks"
