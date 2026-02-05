@@ -1,0 +1,13 @@
+# Terraform
+**/.terraform/*
+**/.terraform.lock.hcl
+**/terraform.tfstate
+**/terraform.tfstate.*
+
+# Keys
+*.pem
+
+# AWS / CLI junk
+aws/
+awscliv2.zip
+terraform_*.zip
